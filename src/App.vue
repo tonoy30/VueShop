@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <navbar></navbar>
+    <navbar @search="search"></navbar>
     <div class="container">
       <div class="row">
         <div class="col-sm-9">
           <inventory @newItemAdded="addToCart" :items="items"></inventory>
         </div>
         <div class="col-sm-3">
-          <cart :items="carts"></cart>
+          <cart @removeFromCart="removeItem" :items="carts"></cart>
         </div>
       </div>
     </div>
@@ -39,6 +39,14 @@ export default {
   methods: {
     addToCart(item) {
       this.carts.push(item);
+    },
+    removeItem(index) {
+      this.carts.splice(index, 1);
+    },
+    search(keyword) {
+      this.items = data.filter(item => {
+        return item.title.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+      });
     }
   }
 };

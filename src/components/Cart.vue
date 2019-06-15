@@ -8,6 +8,7 @@
     <li v-for="(item, index) in items" :key="index" class="list-group-item">
       <span class="item-name">{{ item.title }}</span>
       <span class="item-price float-right">${{ item.price }}</span>
+      <button class="btn btn-sm btn-danger" @click="removeItem(index)">X</button>
     </li>
     <hr>
     <li class="list-group-item">
@@ -27,6 +28,11 @@ export default {
         total += parseFloat(item.price);
       });
       return total;
+    }
+  },
+  methods: {
+    removeItem(index) {
+      this.$emit("removeFromCart", index);
     }
   }
 };
